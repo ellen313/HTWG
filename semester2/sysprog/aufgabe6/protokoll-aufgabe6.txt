@@ -1,0 +1,162 @@
+#protokoll-aufgabe6
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6/lib$ ./build-static.sh
+g++ -g -c -W -Wall -Weffc++ -Wold-style-cast -std=c++11 benotung.cpp
+g++ -g -c -W -Wall -Weffc++ -Wold-style-cast -std=c++11 fachnote.cpp
+g++ -g -c -W -Wall -Weffc++ -Wold-style-cast -std=c++11 fachnoten_liste.cpp
+ar rvs libaufgabe6.a benotung.o fachnote.o fachnoten_liste.o
+r - benotung.o
+r - fachnote.o
+r - fachnoten_liste.o
+build successful
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6/lib$ ar t libaufgabe6.a
+benotung.o
+fachnote.o
+fachnoten_liste.o
+
+Was bewirkt die Option t bei ar?
+t steht ür list und wird verwendet um den Inhalt einer Archivdatei aufzulisten (Liste der Dateien oder Objekte, die sich im Archiv befinden)
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6/lib$ ./build-dynamic.sh
+g++ -g -c -W -fpic -Wall -Weffc++ -Wold-style-cast -std=c++11 benotung.cpp
+g++ -g -c -W -fpic -Wall -Weffc++ -Wold-style-cast -std=c++11 fachnote.cpp
+g++ -g -c -W -fpic -Wall -Weffc++ -Wold-style-cast -std=c++11 fachnoten_liste.cpp
+g++ -shared -o libaufgabe6.so benotung.o fachnote.o fachnoten_liste.o
+build successful
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6/lib$ file libaufgabe6.so
+libaufgabe6.so: ELF 64-bit LSB shared object, x86-64, version 1 (GNU/Linux), dynamically linked, BuildID[sha1]=5836a7d949a900e2e2db40fc32254a413a288c40, with debug_info, not stripped
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6/lib$ nm -gC libaufgabe6.so | grep 'benotung\|fachnote
+\|fachnoten_liste'
+0000000000002bd4 T fachnoten_liste::end()
+0000000000002b84 T fachnoten_liste::begin()
+0000000000002b3a T fachnoten_liste::insert(fachnote*)
+0000000000002c1e W fachnoten_liste::element::element(fachnoten_liste::element*, fachnote*)
+0000000000002c1e W fachnoten_liste::element::element(fachnoten_liste::element*, fachnote*)
+0000000000002a2c T fachnoten_liste::iterator::iterator(fachnoten_liste::element*)
+0000000000002a2c T fachnoten_liste::iterator::iterator(fachnoten_liste::element*)
+0000000000002a8a T fachnoten_liste::iterator::operator++()
+0000000000002aae T fachnoten_liste::fachnoten_liste(void (*)(fachnote*))
+0000000000002aae T fachnoten_liste::fachnoten_liste(void (*)(fachnote*))
+0000000000002ad8 T fachnoten_liste::~fachnoten_liste()
+0000000000002ad8 T fachnoten_liste::~fachnoten_liste()
+0000000000005100 B benotung::schlechteste
+00000000000050fc B benotung::beste
+000000000000243a T benotung::benotung(int)
+000000000000243a T benotung::benotung(int)
+0000000000002966 T fachnote::fachnote(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, benotung const&)
+0000000000002966 T fachnote::fachnote(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, benotung const&)
+0000000000002a70 T fachnoten_liste::iterator::operator*() const
+0000000000002a4a T fachnoten_liste::iterator::operator!=(fachnoten_liste::iterator const&) const
+00000000000025c8 T benotung::ist_bestanden() const
+00000000000025b4 T benotung::int_value() const
+00000000000025e2 T operator==(benotung const&, benotung const&)
+
+man file: file bestimmt den Dateityp einer Datei
+man nm: über nm erhäl man Informationen über die Symbole bspw Adressen on Funktionen, Variablen anzeigen
+man grep: durchsucht Text nach bestimmten Muster und gibt die Zeilen aus, die dieses Muster enthalten 
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6/lib$ make
+make: Nothing to be done for 'all'.
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6/lib$ make LIBTYPE=a
+make: Nothing to be done for 'all'.
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6$ ldd bin/notenspiegel
+        linux-vdso.so.1 (0x00007ffe027dc000)
+        libaufgabe6.so => not found
+        libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007fa216c42000)
+        libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fa216c22000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fa2169fa000)
+        libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fa216913000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007fa216e7b000)
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6/lib$ make LIBTYPE=so
+make: Nothing to be done for 'all'.
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6/lib$ make clean
+rm -f libaufgabe6.a libaufgabe6.so benotung.o fachnote.o fachnoten_liste.o depend
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6/lib$ make -R all
+g++ -I. -MM benotung.cpp fachnote.cpp fachnoten_liste.cpp > depend
+g++ -I. -g -W -Wall -Wextra -Weffc++ -Wold-style-cast -std=c++11 -fpic -c benotung.cpp -o benotung.o
+g++ -I. -g -W -Wall -Wextra -Weffc++ -Wold-style-cast -std=c++11 -fpic -c fachnote.cpp -o fachnote.o
+g++ -I. -g -W -Wall -Wextra -Weffc++ -Wold-style-cast -std=c++11 -fpic -c fachnoten_liste.cpp -o fachnoten_liste.o
+ar rvs libaufgabe6.a benotung.o fachnote.o fachnoten_liste.o
+ar: creating libaufgabe6.a
+a - benotung.o
+a - fachnote.o
+a - fachnoten_liste.o
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6$ bin/notenspiegel
+Fach und Note zwischen 10 und 50 eingeben (Ende mit Strg-D):
+sypr 40
+
+
+NOTENSPIEGEL
+sypr    4,0     bestanden
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6$ make -R clean
+for p in lib bin ; do \
+                (cd $p && make clean) ; \
+done
+make[1]: Entering directory '/mnt/c/sypr-uebungen/aufgabe6/lib'
+rm -f libaufgabe6.a libaufgabe6.so benotung.o fachnote.o fachnoten_liste.o depend
+make[1]: Leaving directory '/mnt/c/sypr-uebungen/aufgabe6/lib'
+make[1]: Entering directory '/mnt/c/sypr-uebungen/aufgabe6/bin'
+rm -f notenspiegel notenspiegel.o depend
+make[1]: Leaving directory '/mnt/c/sypr-uebungen/aufgabe6/bin'
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6$ make -R LIBTYPE=so
+for p in lib bin ; do \
+                (cd $p && make all) ; \
+done
+make[1]: Entering directory '/mnt/c/sypr-uebungen/aufgabe6/lib'
+g++ -I. -MM benotung.cpp fachnote.cpp fachnoten_liste.cpp > depend
+g++ -I. -g -W -Wall -Wextra -Weffc++ -Wold-style-cast -std=c++11 -fpic -c benotung.cpp -o benotung.o
+g++ -I. -g -W -Wall -Wextra -Weffc++ -Wold-style-cast -std=c++11 -fpic -c fachnote.cpp -o fachnote.o
+g++ -I. -g -W -Wall -Wextra -Weffc++ -Wold-style-cast -std=c++11 -fpic -c fachnoten_liste.cpp -o fachnoten_liste.o
+g++ -shared -o libaufgabe6.so benotung.o fachnote.o fachnoten_liste.o
+make[1]: Leaving directory '/mnt/c/sypr-uebungen/aufgabe6/lib'
+make[1]: Entering directory '/mnt/c/sypr-uebungen/aufgabe6/bin'
+g++ -I../lib -MM notenspiegel.cpp > depend
+g++ -I../lib -g -W -Wall -Weffc++ -Wold-style-cast -std=c++11 -fpic -c notenspiegel.cpp -o notenspiegel.o
+g++ -I../lib -L../lib -Wl,-rpath=../lib -o notenspiegel notenspiegel.o -l:libaufgabe6.so
+make[1]: Leaving directory '/mnt/c/sypr-uebungen/aufgabe6/bin'
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6$ ldd bin/notenspiegel
+        linux-vdso.so.1 (0x00007ffe01f79000)
+        libaufgabe6.so => not found
+        libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007fbf3fecb000)
+        libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fbf3feab000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fbf3fc83000)
+        libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fbf3fb9c000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007fbf40104000)
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6$ LD_LIBRARY_PATH=lib ldd bin/notenspiegel
+        linux-vdso.so.1 (0x00007ffe925cb000)
+        libaufgabe6.so => lib/libaufgabe6.so (0x00007fea02893000)
+        libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007fea02662000)
+        libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fea02642000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fea0241a000)
+        libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fea02331000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007fea028a1000)
+
+ellen_04@EllenSurface23:/mnt/c/sypr-uebungen/aufgabe6$ LD_LIBRARY_PATH=lib bin/notenspiegel
+Fach und Note zwischen 10 und 50 eingeben (Ende mit Strg-D):
+mathe 30
+
+NOTENSPIEGEL
+mathe   3,0     bestanden
+
+touch: ändere Dateizeitstempel; aktualisiert die Zugriffs- und Modifizierungszeit von jeder FILE auf die aktuelle Zeit
+
+Was hat es mit der Umgebungsvariablen LD_LIBRARY_PATH auf sich?
+eine dynamische Bibliothek muss zur Laufzeit des Programms zugreifbar sein
+
+Was könnte man in Ihren Makefiles alles weglassen, wenn man auf die make-Option -R verzichten würde?
+wird verwendet um rekursive make auszuführen
+man könnte alles was man für das rekursive make oder die behandlung von unterordnern benötigt (variablen)
+

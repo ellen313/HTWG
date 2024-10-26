@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdbool.h>
+int main(void)
+{
+    int nI = 123;
+    short int nS = 123;
+    long int nL = 123L;
+    long long int nLL = 123LL;
+    unsigned int nUI = 0xffffffffU;
+    unsigned short int nUSI = 0xffffU;
+    unsigned long int nULI = 0xfffffffffUL;
+    unsigned long long int nULLI = 0xffffffffffffULL;
+
+    float f = 3.14F;
+    double d = 3.14;
+    long double dL = 3.14L;
+
+    char c = 'c';
+    signed char byteSC = -1;
+    unsigned char byteUC = 0xff;
+
+    bool abool = false;
+
+    //const damit Zeiger nicht auf anderes zeigt
+    const char* s = (char*) "Hallo";
+
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %d\n", (void*) &nI, sizeof(nI), "int", "nI", nI);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %hd\n", (void*) &nS, sizeof(nS), "short int", "nS", nS);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %ld\n", (void*) &nL, sizeof(nL), "long int", "nL", nL);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %lld\n", (void*) &nLL, sizeof(nLL), "long long int", "nLL", nLL);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %u\n", (void*) &nUI, sizeof(nUI), "unsigned int", "nUI", nUI);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %hu\n", (void*) &nUSI, sizeof(nUSI), "unsigned short int", "nUSI", nUSI);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %lu\n", (void*) &nULI, sizeof(nULI), "unsigned long int", "nULI", nULI);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %llu\n", (void*) &nULLI, sizeof(nULLI), "unsigned long long int", "nULLI", nULLI);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %f\n", (void*) &f, sizeof(f), "float", "f", f);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %lg\n", (void*) &d, sizeof(d), "double", "d", d);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %Lg\n", (void*) &dL, sizeof(dL), "lond double", "dL", dL);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %c\n", (void*) &c, sizeof(c), "char", "c", c);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %hhd\n", (void*) &byteSC, sizeof(byteSC), "signed char", "byteSC", byteSC);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %hhu\n", (void*) &byteUC, sizeof(byteUC), "unsigned char", "byteUC", byteUC);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %d\n", (void*) &abool, sizeof(abool), "bool", "abool", abool);
+    printf("Adresse: %p, Platzbedarf: %zu, Typ: %s, Name: %s, Typ: %s\n", (void*) &s, sizeof(s), "char*", "s", s);
+
+    if (sizeof(nI) == 4 && sizeof(nL) == 4 && sizeof(s) == 4) {
+        printf("%s\n", "ILP32");
+    } else if (sizeof(nI) == 4 && sizeof(nL) == 8 && sizeof(s) == 8) {
+        printf("%s\n", "LP64");
+    } else if (sizeof(nI) == 4 && sizeof(nLL) == 8 && sizeof(s) == 8) {
+        printf("%s\n", "LLP64");
+    } else {
+        printf("kein C-Datenmodell gegeben.\n");
+    }
+    return 0;
+}
