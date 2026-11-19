@@ -1,0 +1,4 @@
+﻿  main.cpp
+C:\Users\ellen\OneDrive\Documents\Studium\Semester6\CoGra\Labor\CompuergrafikUebung1\Uebung1\main.cpp(298,6): warning C4101: "delta_SE": Unreferenzierte lokale Variable
+C:\Users\ellen\OneDrive\Documents\Studium\Semester6\CoGra\Labor\CompuergrafikUebung1\Uebung1\main.cpp(299,6): warning C4101: "delta_E": Unreferenzierte lokale Variable
+  Uebung1.vcxproj -> C:\Users\ellen\OneDrive\Documents\Studium\Semester6\CoGra\Labor\CompuergrafikUebung1\x64\Debug\Uebung1.exe

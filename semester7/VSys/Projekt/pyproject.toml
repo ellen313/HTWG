@@ -1,0 +1,156 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dsync"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aioquic>=1.2.0",
+    "croniter>=3.0",
+    "cryptography>=47.0.0",
+    "pyp2p>=0.8.3",
+    "pydantic>=2.10",
+    "pyyaml>=6.0.2",
+    "rich>=15.0.0",
+    "typer>=0.24.1",
+    "keyring>=25.7.0",
+    "keyrings-alt>=5.0.2",
+    "zeroconf>=0.130.0",
+    "pywin32>=306 ; sys_platform == 'win32'",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    "pre-commit>=4.5.1",
+    "ruff>=0.6.0",
+    "mypy>=1.13",
+    "bandit>=1.8",
+    "pyinstaller>=6.11",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "types-pyyaml>=6.0.12.20260518",
+]
+
+[project.scripts]
+dsync = "dsync.main:main"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "A",
+    "DOC",
+    "D",
+    "E",
+    "W",
+    "F",
+    "I",
+    "N",
+    "UP",
+    "FA",
+    "TC",
+    "PTH",
+    "B",
+    "DTZ",
+    "EM",
+    "ISC",
+    "ICN",
+    "PIE",
+    "PT",
+    "Q",
+    "RSE",
+    "RET",
+    "SIM",
+    "TID",
+    "ARG",
+    "ERA",
+    "PGH",
+    "TRY",
+    "RUF",
+]
+ignore = [
+    "E501",
+    "PLR0913",
+    "PLR2004",
+    "TRY003",
+    "EM101",
+    "EM102",
+    "A001",
+    "A002",
+    "A004",
+]
+
+task-tags = ["TODO", "FIXME"]
+
+[tool.ruff.lint.per-file-ignores]
+# Test names are self-documenting; docstrings on every test add only noise.
+"tests/**" = ["D100", "D101", "D103"]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+combine-as-imports = true
+force-single-line = false
+split-on-trailing-comma = true
+
+[tool.ruff.lint.mccabe]
+max-complexity = 17
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
+
+[tool.ruff.lint.pylint]
+max-args = 10
+max-branches = 20
+max-returns = 8
+max-statements = 90
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "double"
+multiline-quotes = "double"
+docstring-quotes = "double"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+pretty = true
+show_error_codes = true
+warn_unreachable = true
+exclude = ["^tests/"]
+mypy_path = ["stubs"]
+
+[[tool.mypy.overrides]]
+module = [
+    "aioquic.*",
+    "croniter.*",
+    "cryptography.*",
+    "rich.*",
+    "typer.*",
+    "keyring.*",
+    "win32service",
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["tests.*", "scripts.*", "dsync.generate_test_certs"]
+ignore_errors = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]
+skips = ["B101", "B108", "B110", "B404", "B603", "B607"]

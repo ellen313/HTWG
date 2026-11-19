@@ -1,0 +1,7 @@
+﻿  main.cpp
+C:\Users\pbegu\Documents\Hs-Studium\6_WS_2526\Computergrafik\ComputergrafikUebung03\Uebung3\Uebung3\main.cpp(87,26): warning C4244: "Argument": Konvertierung von "double" in "GLfloat", möglicher Datenverlust
+C:\Users\pbegu\Documents\Hs-Studium\6_WS_2526\Computergrafik\ComputergrafikUebung03\Uebung3\Uebung3\main.cpp(87,21): warning C4244: "Argument": Konvertierung von "double" in "GLfloat", möglicher Datenverlust
+C:\Users\pbegu\Documents\Hs-Studium\6_WS_2526\Computergrafik\ComputergrafikUebung03\Uebung3\Uebung3\main.cpp(87,16): warning C4244: "Argument": Konvertierung von "double" in "GLfloat", möglicher Datenverlust
+C:\Users\pbegu\Documents\Hs-Studium\6_WS_2526\Computergrafik\ComputergrafikUebung03\Uebung3\Uebung3\main.cpp(321,27): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+C:\Users\pbegu\Documents\Hs-Studium\6_WS_2526\Computergrafik\ComputergrafikUebung03\Uebung3\Uebung3\main.cpp(409,27): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+  Uebung3.vcxproj -> C:\Users\pbegu\Documents\Hs-Studium\6_WS_2526\Computergrafik\ComputergrafikUebung03\Uebung3\x64\Debug\Uebung3.exe

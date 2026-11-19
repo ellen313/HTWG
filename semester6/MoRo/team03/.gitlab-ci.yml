@@ -1,0 +1,3 @@
+include:
+  project: blaich/ci-praktika/moro/ws2026/coffe/submission-pipeline-config
+  file: moro-ci-config.yml

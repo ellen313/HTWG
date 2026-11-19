@@ -1,0 +1,18 @@
+collect_and_place_hexagons:
+  ros__parameters:
+    # Diese Koordinaten müssen exakt zu den spawn-Befehlen im Launch-File passen!
+    hexagons:
+      red: [0.85, 0.5]
+      green: [0.6, 0.9]
+      blue: [0.4, 0.6]
+
+    # Ablageort (Galerie steht bei y=2.2)
+    dropoff:
+      red: [0.2, 2.1]   # Etwas vor der Galerie (y=2.2)
+      green: [0.5, 2.1]
+      blue: [0.8, 2.1]
+
+    heights:
+      hover: 0.30  # Fahrhöhe
+      pick: 0.04   # Greifhöhe (Objekte sind sehr flach: 1.5cm)
+      place: 0.20  # Ablagehöhe

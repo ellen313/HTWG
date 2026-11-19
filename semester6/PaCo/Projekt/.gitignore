@@ -1,0 +1,32 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+
+# Build
+Debug/
+Release/
+x64/
+x86/
+bin/
+obj/
+
+# Project files
+MandelbrotProjekt/MandelbrotProjekt.vcxproj.user
+
+# Binary outputs
+*.exe
+*.dll
+*.lib
+*.pdb
+*.obj
+*.idb
+*.ipch
+*.tlog
+*.log
+*.tmp
+*.cache
+*.db
+*.opendb
+*.VC.opendb
+*.ilk
